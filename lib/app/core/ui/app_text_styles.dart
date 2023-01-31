@@ -16,8 +16,8 @@ class AppTextStyles {
     color: AppColors.primary,
     fontFamily: 'Nunito',
   );
-  static TextStyle textBold35 = const TextStyle(
-    fontSize: 35,
+  static TextStyle textBold20 = const TextStyle(
+    fontSize: 20,
     fontWeight: FontWeight.w700,
     color: AppColors.primary,
     fontFamily: 'Nunito',
@@ -28,18 +28,6 @@ class AppTextStyles {
     fontSize: 12,
     fontWeight: FontWeight.w600,
     color: AppColors.primary,
-    fontFamily: 'Nunito',
-  );
-  static TextStyle textSemiBold14 = const TextStyle(
-    fontSize: 14,
-    fontWeight: FontWeight.w600,
-    color: AppColors.primary,
-    fontFamily: 'Nunito',
-  );
-  static TextStyle textSemiBold35 = const TextStyle(
-    fontSize: 35,
-    fontWeight: FontWeight.w600,
-    color: AppColors.secondary,
     fontFamily: 'Nunito',
   );
 

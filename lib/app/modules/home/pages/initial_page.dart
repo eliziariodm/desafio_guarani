@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../core/ui/app_colors.dart';
 import '../../../core/ui/app_text_styles.dart';
-import '../../../models/pokemons_model.dart';
+import '../../../models/pokemons_id_model.dart';
 import '../home_controller.dart';
 import '../widgets/custom_pokemon_container_widget.dart';
 
@@ -26,45 +26,59 @@ class InitialPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.fromLTRB(14, 10, 14, 10),
               child: Text(
-                'Lista de Pokémons',
-                style: AppTextStyles.textBold16,
+                'Pokemon List',
+                style: AppTextStyles.textBold18,
               ),
             ),
             Obx(
               () => SizedBox(
-                height: constraints.maxHeight * 0.91,
+                height: constraints.maxHeight * 0.905,
                 child: ListView.builder(
-                  padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   shrinkWrap: true,
                   controller: homeController.scrollController,
-                  itemCount: homeController.pokemonList.length + 1,
+                  itemCount: homeController.pokemonsIdList.length + 1,
                   itemBuilder: ((context, index) {
-                    if (index < homeController.pokemonList.length) {
-                      PokemonsModel pokemons =
-                          homeController.pokemonList[index];
-                      if (homeController.pokemonList.length > 1 &&
-                          homeController.pokemonList.length - 1 == index) {
+                    if (index < homeController.pokemonsIdList.length) {
+                      PokemonsIdModel pokemonsId =
+                          homeController.pokemonsIdList[index];
+
+                      if (homeController.pokemonsIdList.length > 1 &&
+                          homeController.pokemonsIdList.length - 1 == index) {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: CustomPokemonContainerWidget(
-                            name: pokemons.name,
-                            // svg: ,
+                            name: pokemonsId.name?.toUpperCase() ?? '',
+                            svg: pokemonsId.svg ?? '',
+                            mainSkill: pokemonsId.mainSkill ?? '',
+                            species: pokemonsId.species ?? '',
+                            types: pokemonsId.types ?? '',
+                            weight: pokemonsId.weight ?? 0,
                           ),
                         );
                       } else if (index == 0) {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: CustomPokemonContainerWidget(
-                            name: pokemons.name,
-                            // svg: ,
+                            name: pokemonsId.name?.toUpperCase() ?? '',
+                            svg: pokemonsId.svg ?? '',
+                            mainSkill: pokemonsId.mainSkill ?? '',
+                            species: pokemonsId.species ?? '',
+                            types: pokemonsId.types ?? '',
+                            weight: pokemonsId.weight ?? 0,
                           ),
                         );
                       } else {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: CustomPokemonContainerWidget(
-                            name: pokemons.name,
-                            // svg: ,
+                            name: pokemonsId.name?.toUpperCase() ?? '',
+                            svg: pokemonsId.svg ?? '',
+                            mainSkill: pokemonsId.mainSkill ?? '',
+                            species: pokemonsId.species ?? '',
+                            types: pokemonsId.types ?? '',
+                            weight: pokemonsId.weight ?? 0,
                           ),
                         );
                       }

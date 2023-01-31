@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-import '../models/details_pokemons_model.dart';
+import '../models/pokemons_id_model.dart';
 import '../models/pokemons_model.dart';
 
 class PokemonsRepository {
@@ -25,17 +25,15 @@ class PokemonsRepository {
     }
   }
 
-  Future<List<DetailsPokemonsModel>> getDetailsPokemons(int id) async {
+  Future<PokemonsIdModel> getPokemonsId(int id) async {
     try {
       final response = await dio.get('https://pokeapi.co/api/v2/pokemon/$id');
 
-      var result = response.data['sprites']['other']['dream_world'] as List;
+      var result = response.data;
 
-      var listDetailsPokemons = result
-          .map((element) => DetailsPokemonsModel.fromMap(element))
-          .toList();
+      var detailsPokemons = PokemonsIdModel.fromMap(result);
 
-      return listDetailsPokemons;
+      return detailsPokemons;
     } on DioError {
       throw Exception();
     }
