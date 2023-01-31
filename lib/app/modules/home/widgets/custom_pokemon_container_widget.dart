@@ -3,21 +3,27 @@ import 'package:flutter/material.dart';
 import '../../../core/ui/app_colors.dart';
 import '../../../core/ui/app_images.dart';
 import '../../../core/ui/app_text_styles.dart';
+import '../pages/details_page.dart';
 
 class CustomPokemonContainerWidget extends StatelessWidget {
-  final Function()? onTap;
   final String name;
 
   const CustomPokemonContainerWidget({
     required this.name,
-    required this.onTap,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DetailsPage(nameDetails: name),
+          ),
+        );
+      },
       child: Container(
         decoration: BoxDecoration(
           color: AppColors.white,

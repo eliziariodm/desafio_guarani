@@ -41,7 +41,7 @@ class DetailsPage extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 87, vertical: 63),
                   decoration: const BoxDecoration(
-                    color: AppColors.backgroundSearch,
+                    color: AppColors.backgroundDetails,
                     borderRadius: BorderRadius.only(
                       bottomRight: Radius.circular(20),
                       bottomLeft: Radius.circular(20),

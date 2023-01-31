@@ -9,16 +9,6 @@ class PokemonsModel {
     required this.url,
   });
 
-  PokemonsModel copyWith({
-    String? name,
-    String? url,
-  }) {
-    return PokemonsModel(
-      name: name ?? this.name,
-      url: url ?? this.url,
-    );
-  }
-
   Map<String, dynamic> toMap() {
     return {
       'name': name,

@@ -25,11 +25,11 @@ class AppTheme {
         fontWeight: FontWeight.w400,
         color: AppColors.primary,
       ),
-      unselectedItemColor: AppColors.gray,
-      unselectedIconTheme: IconThemeData(color: AppColors.gray),
+      unselectedItemColor: AppColors.unselected,
+      unselectedIconTheme: IconThemeData(color: AppColors.unselected),
       unselectedLabelStyle: TextStyle(
         fontWeight: FontWeight.w400,
-        color: AppColors.gray,
+        color: AppColors.unselected,
       ),
     ),
   );

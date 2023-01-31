@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../models/details_pokemons_model.dart';
 import '../../models/pokemons_model.dart';
 import '../../repositories/pokemons_repository.dart';
 
@@ -9,9 +10,10 @@ class HomeController extends GetxController {
 
   final pokemonsRepository = PokemonsRepository();
   RxList<PokemonsModel> pokemonList = <PokemonsModel>[].obs;
+  RxList<DetailsPokemonsModel> detailsPokemonsList =
+      <DetailsPokemonsModel>[].obs;
 
   final scrollController = ScrollController();
-  RxBool loadingInfiniteScroll = false.obs;
   RxInt pageNumber = 0.obs;
 
   @override
@@ -20,12 +22,10 @@ class HomeController extends GetxController {
     scrollController.addListener(() async {
       if (scrollController.position.maxScrollExtent ==
           scrollController.offset) {
-        loadingInfiniteScroll.value = true;
         pageNumber.value = pageNumber.value + 5;
         await getPagination(
           page: pageNumber.value,
         );
-        loadingInfiniteScroll.value = false;
       }
     });
     super.onInit();
@@ -47,5 +47,9 @@ class HomeController extends GetxController {
       auxList.add(pokemon);
     }
     pokemonList.addAll(auxList);
+  }
+
+  Future<void> getDetailsPokemon({required int id}) async {
+    final pokemons = await pokemonsRepository.getDetailsPokemons(id);
   }
 }
