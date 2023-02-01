@@ -21,8 +21,7 @@ class HomeController extends GetxController {
   RxInt offset = 1.obs;
   RxInt limit = 5.obs;
 
-  final favoriteList = <PokemonsIdModel>[].obs;
-  RxBool isFavorite = false.obs;
+  RxList<PokemonsIdModel> favoriteList = <PokemonsIdModel>[].obs;
 
   late Box box;
   List<PokemonsIdModel> adapterList = <PokemonsIdModel>[];
@@ -35,7 +34,7 @@ class HomeController extends GetxController {
 
     await getPokemonsController();
 
-    await readyFavorites();
+    // await readyFavorites();
 
     scrollController.addListener(() async {
       if (scrollController.position.maxScrollExtent ==
@@ -80,21 +79,23 @@ class HomeController extends GetxController {
     }
   }
 
-  readyFavorites() {
-    box.keys.forEach((pokemons) async {
-      PokemonsIdModel pokemonsIdModel = await box.get(pokemons);
-      adapterList.add(pokemonsIdModel);
+  // readyFavorites() {
+  //   box.keys.forEach((pokemons) async {
+  //     PokemonsIdModel pokemonsIdModel = await box.get(pokemons);
+  //     adapterList.add(pokemonsIdModel);
 
-      log('lista de ready: $adapterList');
-    });
-  }
+  //     log('lista de ready: $adapterList');
+  //   });
+  // }
 
-  addFavorite() async {
-    favoriteList.value =
-        pokemonsIdList.where((pokemons) => pokemons.favorite == true).toList();
+  addFavorite() {
+    box.get('favorite') ?? '';
+    favoriteList.value = pokemonsIdList.where((pokemons) {
+      box.put('favorite', pokemons);
+      log('put ${box.get('favorite')}');
 
-    // await box.put('j', favoriteList);
-    // log('put ${box.get('j')}');
+      return pokemons.favorite == true;
+    }).toList();
 
     pokemonsIdList.refresh();
   }

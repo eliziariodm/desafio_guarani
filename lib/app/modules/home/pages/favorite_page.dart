@@ -62,7 +62,7 @@ class FavoritePage extends StatelessWidget {
                             splashRadius: 30,
                             color: const Color(0xFF141E26),
                             iconSize: 35,
-                            icon: favoritesPokemonsId.favorite!
+                            icon: favoritesPokemonsId.favorite
                                 ? const Icon(Icons.favorite, color: Colors.red)
                                 : const Icon(Icons.favorite_border),
                             onPressed: () {

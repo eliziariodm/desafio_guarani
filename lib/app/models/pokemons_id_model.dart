@@ -8,7 +8,7 @@ class PokemonsIdModel {
   final String? species;
   final String? types;
   final int? weight;
-  bool? favorite;
+  bool favorite;
 
   PokemonsIdModel({
     this.name,
@@ -18,7 +18,7 @@ class PokemonsIdModel {
     this.species,
     this.types,
     this.weight,
-    this.favorite,
+    this.favorite = false,
   });
 
   Map<String, dynamic> toMap() {

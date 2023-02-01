@@ -1,9 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../core/ui/app_colors.dart';
 import '../../../core/ui/app_images.dart';
@@ -74,29 +71,20 @@ class _DetailsPageState extends State<DetailsPage> {
                         style: AppTextStyles.textBold18,
                       ),
                       const Spacer(),
-                      ValueListenableBuilder<Box>(
-                        valueListenable: Hive.box('novo').listenable(),
-                        builder: (_, box, __) {
-                          return IconButton(
-                            splashRadius: 30,
-                            color: const Color(0xFF141E26),
-                            iconSize: 30,
-                            icon: widget.pokemonsIdDetails.favorite!
-                                ? const Icon(Icons.favorite, color: Colors.red)
-                                : const Icon(Icons.favorite_border),
-                            onPressed: () {
-                              setState(() {
-                                widget.pokemonsIdDetails.favorite =
-                                    !widget.pokemonsIdDetails.favorite!;
+                      IconButton(
+                        splashRadius: 30,
+                        color: const Color(0xFF141E26),
+                        iconSize: 30,
+                        icon: widget.pokemonsIdDetails.favorite
+                            ? const Icon(Icons.favorite, color: Colors.red)
+                            : const Icon(Icons.favorite_border),
+                        onPressed: () {
+                          setState(() {
+                            widget.pokemonsIdDetails.favorite =
+                                !widget.pokemonsIdDetails.favorite;
 
-                                box.put(
-                                    'false', widget.pokemonsIdDetails.favorite);
-                                log('put ${box.get('false')}');
-
-                                homeController.addFavorite();
-                              });
-                            },
-                          );
+                            homeController.addFavorite();
+                          });
                         },
                       ),
                     ],
