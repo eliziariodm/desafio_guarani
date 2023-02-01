@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../../../models/pokemons_id_model.dart';
 import '../home_controller.dart';
 
 class FavoritePage extends StatelessWidget {
@@ -34,22 +35,24 @@ class FavoritePage extends StatelessWidget {
               : ListView.builder(
                   itemCount: homeController.favoriteList.length,
                   itemBuilder: (context, index) {
+                    PokemonsIdModel favoritesPokemonsId =
+                        homeController.favoriteList[index];
+
                     return Card(
                       color: Colors.white,
-                      margin:
-                          const EdgeInsets.only(top: 10, left: 10, bottom: 10),
+                      margin: const EdgeInsets.all(40),
                       child: ListTile(
                         title: Padding(
                           padding: const EdgeInsets.all(5),
                           child: Text(
-                            homeController.favoriteList[index].name ?? '',
+                            favoritesPokemonsId.name ?? '',
                             style: const TextStyle(fontSize: 16),
                           ),
                         ),
                         subtitle: Padding(
                           padding: const EdgeInsets.all(5),
                           child: SvgPicture.network(
-                            homeController.favoriteList[index].svg ?? '',
+                            favoritesPokemonsId.svg ?? '',
                           ),
                         ),
                         trailing: Container(
@@ -59,12 +62,12 @@ class FavoritePage extends StatelessWidget {
                             splashRadius: 30,
                             color: const Color(0xFF141E26),
                             iconSize: 35,
-                            icon: homeController.favoriteList[index].favorite
+                            icon: favoritesPokemonsId.favorite!
                                 ? const Icon(Icons.favorite, color: Colors.red)
                                 : const Icon(Icons.favorite_border),
                             onPressed: () {
-                              homeController.removeFavorite(
-                                  homeController.favoriteList[index]);
+                              homeController
+                                  .removeFavorite(favoritesPokemonsId);
                             },
                           ),
                         ),

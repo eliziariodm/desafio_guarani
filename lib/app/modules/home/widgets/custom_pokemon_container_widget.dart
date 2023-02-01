@@ -3,23 +3,14 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../core/ui/app_colors.dart';
 import '../../../core/ui/app_text_styles.dart';
+import '../../../models/pokemons_id_model.dart';
 import '../pages/details_page.dart';
 
 class CustomPokemonContainerWidget extends StatelessWidget {
-  final String name;
-  final String svg;
-  final String mainSkill;
-  final String species;
-  final String types;
-  final int weight;
+  final PokemonsIdModel pokemonsId;
 
   const CustomPokemonContainerWidget({
-    required this.name,
-    required this.svg,
-    required this.mainSkill,
-    required this.species,
-    required this.types,
-    required this.weight,
+    required this.pokemonsId,
     super.key,
   });
 
@@ -31,12 +22,7 @@ class CustomPokemonContainerWidget extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => DetailsPage(
-              nameDetails: name,
-              svgDetails: svg,
-              mainSkillDetails: mainSkill,
-              speciesDetails: species,
-              typesDetails: types,
-              weightDetails: weight,
+              pokemonsIdDetails: pokemonsId,
             ),
           ),
         );
@@ -61,14 +47,14 @@ class CustomPokemonContainerWidget extends StatelessWidget {
             Flexible(
               flex: 2,
               child: Text(
-                name,
+                pokemonsId.name!.toUpperCase(),
                 style: AppTextStyles.textBold16,
               ),
             ),
             Flexible(
               flex: 1,
               child: SvgPicture.network(
-                svg,
+                pokemonsId.svg ?? '',
                 height: 85,
                 width: 85,
               ),

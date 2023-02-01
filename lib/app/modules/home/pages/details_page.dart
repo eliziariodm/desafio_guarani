@@ -3,31 +3,28 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../core/ui/app_colors.dart';
 import '../../../core/ui/app_images.dart';
 import '../../../core/ui/app_text_styles.dart';
+import '../../../models/pokemons_id_model.dart';
 import '../home_controller.dart';
 import '../widgets/description_widget.dart';
 
-class DetailsPage extends StatelessWidget {
-  final String nameDetails;
-  final String svgDetails;
-  final String mainSkillDetails;
-  final String speciesDetails;
-  final String typesDetails;
-  final int weightDetails;
+class DetailsPage extends StatefulWidget {
+  final PokemonsIdModel pokemonsIdDetails;
 
   const DetailsPage({
-    required this.nameDetails,
-    required this.svgDetails,
-    required this.mainSkillDetails,
-    required this.speciesDetails,
-    required this.typesDetails,
-    required this.weightDetails,
+    required this.pokemonsIdDetails,
     super.key,
   });
 
+  @override
+  State<DetailsPage> createState() => _DetailsPageState();
+}
+
+class _DetailsPageState extends State<DetailsPage> {
   @override
   Widget build(BuildContext context) {
     final homeController = Get.find<HomeController>();
@@ -65,7 +62,7 @@ class DetailsPage extends StatelessWidget {
                       bottomLeft: Radius.circular(20),
                     ),
                   ),
-                  child: SvgPicture.network(svgDetails),
+                  child: SvgPicture.network(widget.pokemonsIdDetails.svg ?? ''),
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 11, 20, 5),
@@ -73,44 +70,53 @@ class DetailsPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        nameDetails.toUpperCase(),
+                        widget.pokemonsIdDetails.name!.toUpperCase(),
                         style: AppTextStyles.textBold18,
                       ),
                       const Spacer(),
-                      Obx(
-                        () => IconButton(
-                          splashRadius: 30,
-                          color: const Color(0xFF141E26),
-                          iconSize: 30,
-                          icon: homeController.isFavorite.value
-                              ? const Icon(Icons.favorite, color: Colors.red)
-                              : const Icon(Icons.favorite_border),
-                          onPressed: () {
-                            homeController.isFavorite.value =
-                                !homeController.isFavorite.value;
-                            log('aqui ${homeController.isFavorite.value}');
-                            homeController.addFavorite();
-                          },
-                        ),
+                      ValueListenableBuilder<Box>(
+                        valueListenable: Hive.box('novo').listenable(),
+                        builder: (_, box, __) {
+                          return IconButton(
+                            splashRadius: 30,
+                            color: const Color(0xFF141E26),
+                            iconSize: 30,
+                            icon: widget.pokemonsIdDetails.favorite!
+                                ? const Icon(Icons.favorite, color: Colors.red)
+                                : const Icon(Icons.favorite_border),
+                            onPressed: () {
+                              setState(() {
+                                widget.pokemonsIdDetails.favorite =
+                                    !widget.pokemonsIdDetails.favorite!;
+
+                                box.put(
+                                    'false', widget.pokemonsIdDetails.favorite);
+                                log('put ${box.get('false')}');
+
+                                homeController.addFavorite();
+                              });
+                            },
+                          );
+                        },
                       ),
                     ],
                   ),
                 ),
                 DescriptionWidget(
                   title: 'Weight',
-                  data: weightDetails.toString(),
+                  data: widget.pokemonsIdDetails.weight.toString(),
                 ),
                 DescriptionWidget(
                   title: 'Type',
-                  data: typesDetails,
+                  data: widget.pokemonsIdDetails.types ?? '',
                 ),
                 DescriptionWidget(
                   title: 'Ability',
-                  data: mainSkillDetails,
+                  data: widget.pokemonsIdDetails.mainSkill ?? '',
                 ),
                 DescriptionWidget(
                   title: 'Specie',
-                  data: speciesDetails,
+                  data: widget.pokemonsIdDetails.species ?? '',
                 ),
               ],
             ),

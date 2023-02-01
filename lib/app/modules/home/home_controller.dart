@@ -1,6 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 
+import '../../core/hive/pokemon_hive_adapter.dart';
 import '../../models/pokemons_id_model.dart';
 import '../../models/pokemons_model.dart';
 import '../../repositories/pokemons_repository.dart';
@@ -20,10 +24,18 @@ class HomeController extends GetxController {
   final favoriteList = <PokemonsIdModel>[].obs;
   RxBool isFavorite = false.obs;
 
+  late Box box;
+  List<PokemonsIdModel> adapterList = <PokemonsIdModel>[];
+
   @override
   onInit() async {
     super.onInit();
+    Hive.registerAdapter(PokemonHiveAdapter());
+    box = await Hive.openBox<PokemonsIdModel>('preferences');
+
     await getPokemonsController();
+
+    await readyFavorites();
 
     scrollController.addListener(() async {
       if (scrollController.position.maxScrollExtent ==
@@ -68,11 +80,38 @@ class HomeController extends GetxController {
     }
   }
 
-  addFavorite() {
+  readyFavorites() {
+    box.keys.forEach((pokemons) async {
+      PokemonsIdModel pokemonsIdModel = await box.get(pokemons);
+      adapterList.add(pokemonsIdModel);
+
+      log('lista de ready: $adapterList');
+    });
+  }
+
+  addFavorite() async {
     favoriteList.value =
         pokemonsIdList.where((pokemons) => pokemons.favorite == true).toList();
+
+    // await box.put('j', favoriteList);
+    // log('put ${box.get('j')}');
+
     pokemonsIdList.refresh();
   }
+
+  // addFavorite() async {
+  //   pokemonsIdList.forEach((pokemon) {
+  //     if (!adapterList.any((p) => p.favorite == pokemon.favorite)) {
+  //       favoriteList.add(pokemon);
+  //       log('favorites: $favoriteList');
+
+  //       box.put(pokemon.favorite, pokemon);
+  //       log('put ${box.get(pokemon)}');
+  //     }
+  //   });
+
+  //   pokemonsIdList.refresh();
+  // }
 
   removeFavorite(PokemonsIdModel pokemonsIdModel) {
     favoriteList.remove(pokemonsIdModel);

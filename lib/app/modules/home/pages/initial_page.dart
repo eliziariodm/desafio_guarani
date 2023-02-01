@@ -49,36 +49,21 @@ class InitialPage extends StatelessWidget {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: CustomPokemonContainerWidget(
-                            name: pokemonsId.name?.toUpperCase() ?? '',
-                            svg: pokemonsId.svg ?? '',
-                            mainSkill: pokemonsId.mainSkill ?? '',
-                            species: pokemonsId.species ?? '',
-                            types: pokemonsId.types ?? '',
-                            weight: pokemonsId.weight ?? 0,
+                            pokemonsId: pokemonsId,
                           ),
                         );
                       } else if (index == 0) {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: CustomPokemonContainerWidget(
-                            name: pokemonsId.name?.toUpperCase() ?? '',
-                            svg: pokemonsId.svg ?? '',
-                            mainSkill: pokemonsId.mainSkill ?? '',
-                            species: pokemonsId.species ?? '',
-                            types: pokemonsId.types ?? '',
-                            weight: pokemonsId.weight ?? 0,
+                            pokemonsId: pokemonsId,
                           ),
                         );
                       } else {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: CustomPokemonContainerWidget(
-                            name: pokemonsId.name?.toUpperCase() ?? '',
-                            svg: pokemonsId.svg ?? '',
-                            mainSkill: pokemonsId.mainSkill ?? '',
-                            species: pokemonsId.species ?? '',
-                            types: pokemonsId.types ?? '',
-                            weight: pokemonsId.weight ?? 0,
+                            pokemonsId: pokemonsId,
                           ),
                         );
                       }
