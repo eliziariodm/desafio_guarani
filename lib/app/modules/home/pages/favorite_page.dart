@@ -66,8 +66,8 @@ class FavoritePage extends StatelessWidget {
                                 ? const Icon(Icons.favorite, color: Colors.red)
                                 : const Icon(Icons.favorite_border),
                             onPressed: () {
-                              homeController
-                                  .removeFavorite(favoritesPokemonsId);
+                              homeController.removeFavorite(
+                                  homeController.favoriteList[index]);
                             },
                           ),
                         ),

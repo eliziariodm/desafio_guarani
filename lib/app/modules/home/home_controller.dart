@@ -2,12 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
 
-import '../../core/hive/pokemon_hive_adapter.dart';
 import '../../models/pokemons_id_model.dart';
 import '../../models/pokemons_model.dart';
 import '../../repositories/pokemons_repository.dart';
+import '../splash/splash_controller.dart';
 
 class HomeController extends GetxController {
   RxInt selectedIndex = 0.obs;
@@ -23,18 +22,15 @@ class HomeController extends GetxController {
 
   RxList<PokemonsIdModel> favoriteList = <PokemonsIdModel>[].obs;
 
-  late Box box;
-  List<PokemonsIdModel> adapterList = <PokemonsIdModel>[];
+  final SplashController splashController = Get.find();
 
   @override
   onInit() async {
     super.onInit();
-    Hive.registerAdapter(PokemonHiveAdapter());
-    box = await Hive.openBox<PokemonsIdModel>('preferences');
 
     await getPokemonsController();
 
-    // await readyFavorites();
+    await readyFavorites();
 
     scrollController.addListener(() async {
       if (scrollController.position.maxScrollExtent ==
@@ -79,48 +75,44 @@ class HomeController extends GetxController {
     }
   }
 
-  // readyFavorites() {
-  //   box.keys.forEach((pokemons) async {
-  //     PokemonsIdModel pokemonsIdModel = await box.get(pokemons);
-  //     adapterList.add(pokemonsIdModel);
+  readyFavorites() {
+    for (var pokemons in splashController.box.keys) {
+      log('pokemon: $pokemons');
 
-  //     log('lista de ready: $adapterList');
-  //   });
-  // }
-
-  addFavorite() {
-    box.get('favorite') ?? '';
-    favoriteList.value = pokemonsIdList.where((pokemons) {
-      box.put('favorite', pokemons);
-      log('put ${box.get('favorite')}');
-
-      return pokemons.favorite == true;
-    }).toList();
-
-    pokemonsIdList.refresh();
+      PokemonsIdModel pokemonsIdModel = splashController.box.get(pokemons);
+      favoriteList.add(pokemonsIdModel);
+    }
   }
 
-  // addFavorite() async {
-  //   pokemonsIdList.forEach((pokemon) {
-  //     if (!adapterList.any((p) => p.favorite == pokemon.favorite)) {
-  //       favoriteList.add(pokemon);
-  //       log('favorites: $favoriteList');
+  addFavorite() {
+    favoriteList.value =
+        pokemonsIdList.where((pokemons) => pokemons.favorite == true).toList();
 
-  //       box.put(pokemon.favorite, pokemon);
-  //       log('put ${box.get(pokemon)}');
-  //     }
-  //   });
-
-  //   pokemonsIdList.refresh();
-  // }
+    favoriteList.where(
+      (pokemons) {
+        if (pokemons.favorite == true) {
+          for (PokemonsIdModel pokemon in favoriteList) {
+            splashController.box.put(pokemon.name, pokemon);
+            log('put ${splashController.box.get(pokemon.name)}');
+          }
+        }
+        return pokemons.favorite == true;
+      },
+    ).toList();
+  }
 
   removeFavorite(PokemonsIdModel pokemonsIdModel) {
     favoriteList.remove(pokemonsIdModel);
+
     pokemonsIdList.map((pokemons) {
+      splashController.box.delete(pokemonsIdModel.name);
+      log('delete ${splashController.box.get(pokemonsIdModel.name)}');
+
       if (pokemonsIdModel.name == pokemons.name) {
         pokemons.favorite = false;
       }
     }).toList();
+
     pokemonsIdList.refresh();
   }
 }

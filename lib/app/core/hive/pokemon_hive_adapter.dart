@@ -16,6 +16,7 @@ class PokemonHiveAdapter extends TypeAdapter<PokemonsIdModel> {
       species: reader.readString(),
       types: reader.readString(),
       weight: reader.readInt(),
+      favorite: reader.readBool(),
     );
   }
 
@@ -28,5 +29,6 @@ class PokemonHiveAdapter extends TypeAdapter<PokemonsIdModel> {
     writer.writeString(obj.species ?? '');
     writer.writeString(obj.types ?? '');
     writer.writeInt(obj.weight ?? 0);
+    writer.writeBool(obj.favorite);
   }
 }
