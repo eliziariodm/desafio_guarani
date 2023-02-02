@@ -13,7 +13,7 @@
 - [x] Requisitos 7
 - [x] Requisitos 8
 
-## Requisitos Diferenciais
+## Requisitos Diferenciais:
 
 - [x] Requisitos 1
 - [x] Requisitos 2
