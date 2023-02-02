@@ -1,8 +1,8 @@
 # Desafio Empresa Guarani
 
-### Requisitos Completos
+## Requisitos Completos
 
-## O desafio contou com alguns requisitos principais que foram atendidos:
+# O desafio contou com alguns requisitos principais que foram atendidos:
 
 - [x] Requisitos 1
 - [x] Requisitos 2
