@@ -18,5 +18,5 @@
 - [x] Requisitos 1
 - [x] Requisitos 2
 - [x] Requisitos 3
-- [o] Incompleto 4
+- [ ] Incompleto 4
 - [ ] Requisitos 5
