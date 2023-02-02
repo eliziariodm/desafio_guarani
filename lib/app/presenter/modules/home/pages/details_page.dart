@@ -6,7 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import '../../../../core/ui/app_colors.dart';
 import '../../../../core/ui/app_images.dart';
 import '../../../../core/ui/app_text_styles.dart';
-import '../../../../infra/datasources/models/pokemons_id_model.dart';
+import '../../../../infra/models/pokemons_id_model.dart';
 import '../../splash/splash_controller.dart';
 import '../home_controller.dart';
 import '../widgets/description_widget.dart';

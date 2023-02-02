@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../../core/ui/app_colors.dart';
 import '../../../../core/ui/app_text_styles.dart';
-import '../../../../infra/datasources/models/pokemons_id_model.dart';
+import '../../../../infra/models/pokemons_id_model.dart';
 import '../pages/details_page.dart';
 
 class CustomPokemonContainerWidget extends StatelessWidget {

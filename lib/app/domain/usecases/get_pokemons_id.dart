@@ -1,8 +1,11 @@
+import 'package:dartz/dartz.dart';
+
 import '../entities/pokemons_id.dart';
+import '../errors/error_handling.dart';
 import '../repositories/pokemons_repository.dart';
 
 abstract class GetPokemonsId {
-  Future<PokemonsId> call(int id);
+  Future<Either<ErrorHandlingPokemons, PokemonsId>> call(int id);
 }
 
 class GetPokemonsIdImpl implements GetPokemonsId {
@@ -11,7 +14,11 @@ class GetPokemonsIdImpl implements GetPokemonsId {
   GetPokemonsIdImpl(this.pokemonsRepository);
 
   @override
-  Future<PokemonsId> call(int id) async {
+  Future<Either<ErrorHandlingPokemons, PokemonsId>> call(int id) async {
+    if (id == 0) {
+      return Left(ErrorForZero());
+    }
+
     return pokemonsRepository.getPokemonsId(id);
   }
 }

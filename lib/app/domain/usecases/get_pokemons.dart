@@ -1,8 +1,12 @@
+import 'package:dartz/dartz.dart';
+
 import '../entities/pokemons.dart';
+import '../errors/error_handling.dart';
 import '../repositories/pokemons_repository.dart';
 
 abstract class GetPokemons {
-  Future<List<Pokemons>> call({int limit = 5, int offset = 0});
+  Future<Either<ErrorHandlingPokemons, List<Pokemons>>> call(
+      {int limit = 5, int offset = 0});
 }
 
 class GetPokemonsImpl implements GetPokemons {
@@ -11,7 +15,8 @@ class GetPokemonsImpl implements GetPokemons {
   GetPokemonsImpl(this.pokemonsRepository);
 
   @override
-  Future<List<Pokemons>> call({int limit = 5, int offset = 0}) async {
+  Future<Either<ErrorHandlingPokemons, List<Pokemons>>> call(
+      {int limit = 5, int offset = 0}) async {
     return pokemonsRepository.getPokemons();
   }
 }

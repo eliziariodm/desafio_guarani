@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 
-import '../../infra/datasources/models/pokemons_id_model.dart';
-import '../../infra/datasources/models/pokemons_model.dart';
 import '../../infra/datasources/pokemons_datasource.dart';
+import '../../infra/models/pokemons_id_model.dart';
+import '../../infra/models/pokemons_model.dart';
 
-class PokerApiDatasource implements PokemonsDatasource {
+class PokeApiDatasource implements PokemonsDatasource {
   final dio = Dio();
 
   @override

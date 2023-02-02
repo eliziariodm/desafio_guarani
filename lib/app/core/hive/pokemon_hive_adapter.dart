@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 
-import '../../infra/datasources/models/pokemons_id_model.dart';
+import '../../infra/models/pokemons_id_model.dart';
 
 class PokemonHiveAdapter extends TypeAdapter<PokemonsIdModel> {
   @override

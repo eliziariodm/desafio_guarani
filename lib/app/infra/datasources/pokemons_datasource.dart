@@ -1,5 +1,5 @@
-import 'models/pokemons_id_model.dart';
-import 'models/pokemons_model.dart';
+import '../models/pokemons_id_model.dart';
+import '../models/pokemons_model.dart';
 
 abstract class PokemonsDatasource {
   Future<List<PokemonsModel>> getPokemonsDatasource({
