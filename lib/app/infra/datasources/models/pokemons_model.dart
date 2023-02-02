@@ -1,6 +1,8 @@
 import 'dart:convert';
 
-class PokemonsModel {
+import '../../../domain/entities/pokemons.dart';
+
+class PokemonsModel extends Pokemons {
   final String name;
   final String url;
 

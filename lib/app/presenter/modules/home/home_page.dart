@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../core/ui/app_colors.dart';
-import '../../core/ui/app_images.dart';
+import '../../../core/ui/app_colors.dart';
+import '../../../core/ui/app_images.dart';
 import 'pages/favorite_page.dart';
 import 'pages/initial_page.dart';
 

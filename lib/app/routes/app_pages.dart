@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 
-import '../modules/home/home_binding.dart';
-import '../modules/home/home_page.dart';
-import '../modules/splash/splash_binding.dart';
-import '../modules/splash/splash_page.dart';
+import '../presenter/modules/home/home_binding.dart';
+import '../presenter/modules/home/home_page.dart';
+import '../presenter/modules/splash/splash_binding.dart';
+import '../presenter/modules/splash/splash_page.dart';
 
 part 'app_routes.dart';
 

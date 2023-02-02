@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/ui/app_colors.dart';
-import '../../../core/ui/app_text_styles.dart';
-import '../../../models/pokemons_id_model.dart';
+import '../../../../core/ui/app_colors.dart';
+import '../../../../core/ui/app_text_styles.dart';
+import '../../../../infra/datasources/models/pokemons_id_model.dart';
 import '../home_controller.dart';
 import '../widgets/custom_pokemon_container_widget.dart';
 

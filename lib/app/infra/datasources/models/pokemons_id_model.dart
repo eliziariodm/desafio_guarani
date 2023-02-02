@@ -1,6 +1,8 @@
 import 'dart:convert';
 
-class PokemonsIdModel {
+import '../../../domain/entities/pokemons_id.dart';
+
+class PokemonsIdModel extends PokemonsId {
   final String? name;
   final String? svg;
   final String? frontFemale;

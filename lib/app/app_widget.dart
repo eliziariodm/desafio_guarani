@@ -3,8 +3,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 
 import 'core/ui/app_theme.dart';
-import 'modules/splash/splash_binding.dart';
-import 'modules/splash/splash_page.dart';
+import 'presenter/modules/splash/splash_binding.dart';
+import 'presenter/modules/splash/splash_page.dart';
 import 'routes/app_pages.dart';
 
 class AppWidget extends StatelessWidget {

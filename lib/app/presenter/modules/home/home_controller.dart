@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../models/pokemons_id_model.dart';
-import '../../models/pokemons_model.dart';
-import '../../repositories/pokemons_repository.dart';
+import '../../../external/datasources/poke_api_datasource.dart';
+import '../../../infra/datasources/models/pokemons_id_model.dart';
+import '../../../infra/datasources/models/pokemons_model.dart';
 import '../splash/splash_controller.dart';
 
 class HomeController extends GetxController {
   RxInt selectedIndex = 0.obs;
 
-  final pokemonsRepository = PokemonsRepository();
+  final pokerApiDatasource = PokerApiDatasource();
   RxList<PokemonsModel> pokemonsList = <PokemonsModel>[].obs;
   Rx<PokemonsIdModel> pokemonsId = PokemonsIdModel().obs;
   RxList<PokemonsIdModel> pokemonsIdList = <PokemonsIdModel>[].obs;
@@ -57,7 +57,7 @@ class HomeController extends GetxController {
   }
 
   getPokemonsController() async {
-    pokemonsList.value = await pokemonsRepository.getPokemons();
+    pokemonsList.value = await pokerApiDatasource.getPokemonsDatasource();
 
     for (var pokemon = 1; pokemon <= pokemonsList.length; pokemon++) {
       final ids = await getPokemonsIdController(id: pokemon);
@@ -69,7 +69,8 @@ class HomeController extends GetxController {
   }
 
   Future<PokemonsIdModel> getPokemonsIdController({required int id}) async {
-    return pokemonsId.value = await pokemonsRepository.getPokemonsId(id);
+    return pokemonsId.value =
+        await pokerApiDatasource.getPokemonsIdDatasource(id);
   }
 
   Future<void> getPagination({required int offset, required int limit}) async {
