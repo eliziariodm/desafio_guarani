@@ -1,16 +1,22 @@
-# desafio_guarani
+# Desafio Empresa Guarani
 
-A new Flutter project.
+### Requisitos Completos
 
-## Getting Started
+## O desafio contou com alguns requisitos principais que foram atendidos:
 
-This project is a starting point for a Flutter application.
+- [x] Requisitos 1
+- [x] Requisitos 2
+- [x] Requisitos 3
+- [x] Requisitos 4
+- [x] Requisitos 5
+- [x] Requisitos 6
+- [x] Requisitos 7
+- [x] Requisitos 8
 
-A few resources to get you started if this is your first Flutter project:
+## Requisitos Diferenciais
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [x] Requisitos 1
+- [x] Requisitos 2
+- [x] Requisitos 3
+- [o] Incompleto 4
+- [ ] Requisitos 5
