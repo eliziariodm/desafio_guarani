@@ -7,6 +7,7 @@ import '../../routes/app_pages.dart';
 
 class SplashController extends GetxController {
   late Box box;
+  late Box boxIsTrue;
 
   @override
   onInit() async {
@@ -14,6 +15,7 @@ class SplashController extends GetxController {
 
     Hive.registerAdapter(PokemonHiveAdapter());
     box = await Hive.openBox<PokemonsIdModel>('favorites');
+    boxIsTrue = await Hive.openBox<bool>('isTrueFavorites');
   }
 
   @override

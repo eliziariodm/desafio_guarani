@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -21,6 +19,7 @@ class HomeController extends GetxController {
   RxInt limit = 5.obs;
 
   RxList<PokemonsIdModel> favoriteList = <PokemonsIdModel>[].obs;
+  RxList<PokemonsIdModel> adaptaterList = <PokemonsIdModel>[].obs;
 
   final SplashController splashController = Get.find();
 
@@ -47,6 +46,14 @@ class HomeController extends GetxController {
 
   onItemTapped(int index) {
     selectedIndex.value = index;
+  }
+
+  Future updateList() async {
+    await getPokemonsController();
+    await getPagination(
+      offset: 1,
+      limit: 5,
+    );
   }
 
   getPokemonsController() async {
@@ -77,23 +84,24 @@ class HomeController extends GetxController {
 
   readyFavorites() {
     for (var pokemons in splashController.box.keys) {
-      log('pokemon: $pokemons');
-
       PokemonsIdModel pokemonsIdModel = splashController.box.get(pokemons);
       favoriteList.add(pokemonsIdModel);
     }
   }
 
   addFavorite() {
-    favoriteList.value =
+    adaptaterList.value =
         pokemonsIdList.where((pokemons) => pokemons.favorite == true).toList();
 
-    favoriteList.where(
+    adaptaterList.where(
       (pokemons) {
         if (pokemons.favorite == true) {
-          for (PokemonsIdModel pokemon in favoriteList) {
-            splashController.box.put(pokemon.name, pokemon);
-            log('put ${splashController.box.get(pokemon.name)}');
+          for (PokemonsIdModel pokemon in adaptaterList) {
+            if (!favoriteList.any((p) => p.name == pokemons.name)) {
+              splashController.box.put(pokemon.name, pokemon);
+              splashController.boxIsTrue.put(pokemon.name, pokemon.favorite);
+              favoriteList.add(pokemon);
+            }
           }
         }
         return pokemons.favorite == true;
@@ -104,10 +112,9 @@ class HomeController extends GetxController {
   removeFavorite(PokemonsIdModel pokemonsIdModel) {
     favoriteList.remove(pokemonsIdModel);
 
+    splashController.box.delete(pokemonsIdModel.name);
+    splashController.boxIsTrue.delete(pokemonsIdModel.name);
     pokemonsIdList.map((pokemons) {
-      splashController.box.delete(pokemonsIdModel.name);
-      log('delete ${splashController.box.get(pokemonsIdModel.name)}');
-
       if (pokemonsIdModel.name == pokemons.name) {
         pokemons.favorite = false;
       }

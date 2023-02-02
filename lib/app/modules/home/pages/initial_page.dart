@@ -33,51 +33,59 @@ class InitialPage extends StatelessWidget {
             Obx(
               () => SizedBox(
                 height: constraints.maxHeight * 0.905,
-                child: ListView.builder(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  shrinkWrap: true,
-                  controller: homeController.scrollController,
-                  itemCount: homeController.pokemonsIdList.length + 1,
-                  itemBuilder: ((context, index) {
-                    if (index < homeController.pokemonsIdList.length) {
-                      PokemonsIdModel pokemonsId =
-                          homeController.pokemonsIdList[index];
+                child: RefreshIndicator(
+                  onRefresh: () {
+                    return Future.delayed(
+                      const Duration(seconds: 1),
+                      () => homeController.updateList(),
+                    );
+                  },
+                  child: ListView.builder(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 10),
+                    shrinkWrap: true,
+                    controller: homeController.scrollController,
+                    itemCount: homeController.pokemonsIdList.length + 1,
+                    itemBuilder: ((context, index) {
+                      if (index < homeController.pokemonsIdList.length) {
+                        PokemonsIdModel pokemonsId =
+                            homeController.pokemonsIdList[index];
 
-                      if (homeController.pokemonsIdList.length > 1 &&
-                          homeController.pokemonsIdList.length - 1 == index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: CustomPokemonContainerWidget(
-                            pokemonsId: pokemonsId,
-                          ),
-                        );
-                      } else if (index == 0) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: CustomPokemonContainerWidget(
-                            pokemonsId: pokemonsId,
-                          ),
-                        );
+                        if (homeController.pokemonsIdList.length > 1 &&
+                            homeController.pokemonsIdList.length - 1 == index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: CustomPokemonContainerWidget(
+                              pokemonsId: pokemonsId,
+                            ),
+                          );
+                        } else if (index == 0) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: CustomPokemonContainerWidget(
+                              pokemonsId: pokemonsId,
+                            ),
+                          );
+                        } else {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: CustomPokemonContainerWidget(
+                              pokemonsId: pokemonsId,
+                            ),
+                          );
+                        }
                       } else {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: CustomPokemonContainerWidget(
-                            pokemonsId: pokemonsId,
+                        return const Padding(
+                          padding: EdgeInsets.only(top: 22),
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              color: AppColors.primary,
+                            ),
                           ),
                         );
                       }
-                    } else {
-                      return const Padding(
-                        padding: EdgeInsets.only(top: 22),
-                        child: Center(
-                          child: CircularProgressIndicator(
-                            color: AppColors.primary,
-                          ),
-                        ),
-                      );
-                    }
-                  }),
+                    }),
+                  ),
                 ),
               ),
             ),

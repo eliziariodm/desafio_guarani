@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../core/ui/app_colors.dart';
 import '../../../core/ui/app_images.dart';
 import '../../../core/ui/app_text_styles.dart';
 import '../../../models/pokemons_id_model.dart';
+import '../../splash/splash_controller.dart';
 import '../home_controller.dart';
 import '../widgets/description_widget.dart';
 
@@ -25,6 +27,7 @@ class _DetailsPageState extends State<DetailsPage> {
   @override
   Widget build(BuildContext context) {
     final homeController = Get.find<HomeController>();
+    final splashController = Get.find<SplashController>();
 
     return Scaffold(
       appBar: AppBar(
@@ -71,22 +74,33 @@ class _DetailsPageState extends State<DetailsPage> {
                         style: AppTextStyles.textBold18,
                       ),
                       const Spacer(),
-                      IconButton(
-                        splashRadius: 30,
-                        color: const Color(0xFF141E26),
-                        iconSize: 30,
-                        icon: widget.pokemonsIdDetails.favorite
-                            ? const Icon(Icons.favorite, color: Colors.red)
-                            : const Icon(Icons.favorite_border),
-                        onPressed: () {
-                          setState(() {
-                            widget.pokemonsIdDetails.favorite =
-                                !widget.pokemonsIdDetails.favorite;
+                      ValueListenableBuilder<Box>(
+                          valueListenable:
+                              splashController.boxIsTrue.listenable(),
+                          builder: (_, box, __) {
+                            return IconButton(
+                              splashRadius: 30,
+                              color: const Color(0xFF141E26),
+                              iconSize: 30,
+                              icon: box.get(widget.pokemonsIdDetails.name,
+                                      defaultValue: false)
+                                  ? const Icon(Icons.favorite,
+                                      color: Colors.red)
+                                  : const Icon(Icons.favorite_border),
+                              onPressed: () {
+                                setState(() {
+                                  widget.pokemonsIdDetails.favorite =
+                                      !widget.pokemonsIdDetails.favorite;
 
-                            homeController.addFavorite();
-                          });
-                        },
-                      ),
+                                  splashController.boxIsTrue.put(
+                                      widget.pokemonsIdDetails.name,
+                                      widget.pokemonsIdDetails.favorite);
+
+                                  homeController.addFavorite();
+                                });
+                              },
+                            );
+                          }),
                     ],
                   ),
                 ),
