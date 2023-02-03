@@ -32,7 +32,7 @@ class InitialPage extends StatelessWidget {
             ),
             Obx(
               () => SizedBox(
-                height: constraints.maxHeight * 0.905,
+                height: constraints.maxHeight * 0.899,
                 child: RefreshIndicator(
                   onRefresh: () {
                     return Future.delayed(
